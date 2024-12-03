@@ -12,23 +12,21 @@ const CountryType = new GraphQLObjectType({
     })
 });
 
-// Root Query
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
         country: {
             type: CountryType,
             args: { id: { type: GraphQLInt } },
-            resolve(parent, args) {
-                return pool.query('SELECT * FROM countries WHERE id = $1', [args.id])
-                    .then(res => res.rows[0]);
+            async resolve(parent, args) {
+                const result = await pool.query('SELECT * FROM countries WHERE id = $1', [args.id]);
+                return result.rows[0];
             }
         },
         // Add more queries as needed
     }
 });
 
-// Mutations (optional)
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
@@ -38,11 +36,11 @@ const Mutation = new GraphQLObjectType({
                 name: { type: GraphQLString },
                 population: { type: GraphQLInt }
             },
-            resolve(parent, args) {
-                return pool.query('INSERT INTO countries (name, population) VALUES ($1, $2) RETURNING *', [args.name, args.population])
-                    .then(res => res.rows[0]);
+            async resolve(parent, args) {
+                const result = await pool.query('INSERT INTO countries (name, population) VALUES ($1, $2) RETURNING *', [args.name, args.population]);
+                return result.rows[0];
             }
-        }
+        },
         // Add more mutations as needed
     }
 });

@@ -1,10 +1,16 @@
 const express = require('express');
+const cors = require('cors');
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./graphql/schema');
 const pool = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Enable CORS
+app.use(cors({
+    origin: 'http://localhost:3000'
+  }));
 
 // Test the database connection
 pool.connect()
