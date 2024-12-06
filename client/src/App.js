@@ -9,7 +9,7 @@ import Country from './components/Country';
 function App() {
   return (
     <Router>
-      <div>
+      <>
         {/* Navbar */}
         <nav className="navbar">
           <div className="navbar-container">
@@ -29,7 +29,7 @@ function App() {
           <Route path="/country/:id" element={<Country />} />
           <Route path="/comparison" element={<CountryComparison />} />
         </Routes>
-      </div>
+      </>
     </Router>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styles/Home.css';
 
-function Home() {
+const Home = () => {
   return (
     <div className="hero">
       <div className="hero-content">
@@ -10,6 +10,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;
