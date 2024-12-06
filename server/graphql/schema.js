@@ -1,4 +1,11 @@
-const { GraphQLObjectType, GraphQLSchema, GraphQLString, GraphQLInt } = require('graphql');
+const { 
+    GraphQLObjectType, 
+    GraphQLSchema, 
+    GraphQLString, 
+    GraphQLInt, 
+    GraphQLList
+} = require('graphql');
+
 const pool = require('../db');
 
 // Define your Country type
@@ -15,6 +22,7 @@ const CountryType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
+        // single country query
         country: {
             type: CountryType,
             args: { id: { type: GraphQLInt } },
@@ -23,9 +31,23 @@ const RootQuery = new GraphQLObjectType({
                 return result.rows[0];
             }
         },
+        // all countries query
+        countries: {
+            type: new GraphQLList(CountryType), // list of CountryType objects
+            async resolve() {
+                try {
+                    const result = await pool.query('SELECT * FROM countries');
+                    return result.rows;
+                } catch (error) {
+                    console.error('Error fetching countries:', error);
+                    throw new Error('Could not fetch countries');
+                }
+            }
+        }
         // Add more queries as needed
     }
 });
+
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',

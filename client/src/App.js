@@ -15,7 +15,6 @@ function App() {
               <nav>
                   <ul>
                       <li><Link to="/">Home</Link></li>
-                      <li><Link to="/about">About</Link></li>
                       <li><Link to="/countries">Countries</Link></li>
                       <li><Link to="/comparison">Comparison</Link></li>
                   </ul>
