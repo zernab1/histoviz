@@ -1,11 +1,15 @@
 import React from 'react';
+import '../styles/Home.css';
 
 function Home() {
-    return (
-        <div>
-        <h1>Welcome to Histoviz!</h1>
+  return (
+    <div className="hero">
+      <div className="hero-content">
+        <h1>Welcome to HistoViz!</h1>
+        <p>Idk what to put here</p>
       </div>
-    );
-  }
-  
-  export default Home;
+    </div>
+  );
+}
+
+export default Home;
